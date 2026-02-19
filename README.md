@@ -93,7 +93,7 @@ MajorProject_Evoastra/
 ## ▶️ Run Locally
 
 ### 1️⃣ Clone Repository
-
+https://github.com/SagarKarosiya/Energy-Anomaly-Detection-.git
 
 ### 2️⃣ Create Virtual Environment
 python -m venv venv
@@ -143,7 +143,7 @@ This project can be deployed on:
 
 Sagar Karosiya  
 AI & ML Engineer | Game Developer | Data Scientist  
-
+## https://sagarkarosiya-portfolio.onrender.com/
 ---
 
 ## ⭐ If You Like This Project
