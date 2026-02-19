@@ -1,12 +1,10 @@
-# Energy-Anomaly-Detection-
-
 # ⚡ Energy Anomaly Detection System
 
 An end-to-end Machine Learning project for detecting energy consumption anomalies in commercial buildings using Isolation Forest and deployed as an interactive Streamlit dashboard.
 
 ---
 
-## 🚀 Project Overview
+## 💻 Project Overview
 
 Commercial buildings consume ~30% of global energy, generating billions in operational costs annually.
 
@@ -29,7 +27,7 @@ This project builds a multivariate time-series anomaly detection system to autom
 
 ---
 
-## 📊 Features Engineered
+## 📉 Features Engineered
 
 - Hour of Day
 - Day of Week
@@ -42,7 +40,7 @@ Total Engineered Features: 13+
 
 ---
 
-## 🏗️ Tech Stack
+## 🛠⚙️ Tech Stack 
 
 - Python
 - Pandas
@@ -69,7 +67,7 @@ MajorProject_Evoastra/
 
 ---
 
-##  How It Works
+##  How It Works 🤔
 
 1. Load energy datasets (Electricity, Hot Water, Chilled Water)
 2. Clean & preprocess time-series data
@@ -89,8 +87,8 @@ MajorProject_Evoastra/
 - Real-time ML pipeline execution
 
 ---
-## How to run ML Model In my PC
-## ▶️ Run Locally
+## How to run ML Model In my PC 😁✌️💻
+## ▶️ Run Locally 📡
 
 ### 1️⃣ Clone Repository
 https://github.com/SagarKarosiya/Energy-Anomaly-Detection-.git
@@ -101,7 +99,7 @@ venv\Scripts\activate
 
 ### 3️⃣ Install Requirements
 pip install -r requirements.txt
-
+Put your Data file (abc.csv) in data folder in the model.
 
 ### 4️⃣ Run Streamlit App
 Paste the command in your terminal of VS Code :  <B> streamlit run app.py </B>
@@ -111,12 +109,12 @@ Open in browser:
 http://localhost:8501
 
 
-## 📌 Deployment
+## 📱 Deployment
 
 This project can be deployed on:
 
 - Render.com
-
+## Link : 🖥 (currently link not activate)
 ---
 
 ## 🏆 Key Highlights
@@ -141,7 +139,7 @@ This project can be deployed on:
 
 ## 👨‍💻 Author
 
-Sagar Karosiya  
+## Sagar Karosiya  
 AI & ML Engineer | Game Developer | Data Scientist  
 ## https://sagarkarosiya-portfolio.onrender.com/
 ---
