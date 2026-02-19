@@ -54,4 +54,104 @@ Total Engineered Features: 13+
 ---
 
 ## 📁 Project Structure
+MajorProject_Evoastra/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+│
+└── src/
+├── data_loader.py
+├── preprocessing.py
+├── feature_engineering.py
+└── model.py
+
+
+---
+
+##  How It Works
+
+1. Load energy datasets (Electricity, Hot Water, Chilled Water)
+2. Clean & preprocess time-series data
+3. Generate statistical and temporal features
+4. Train Isolation Forest model
+5. Detect anomalies
+6. Visualize anomalies in interactive dashboard
+
+---
+
+## 📊 Dashboard Features
+
+- Interactive energy type selection
+- Anomaly visualization (red markers)
+- KPI summary metrics
+- Download anomaly data
+- Real-time ML pipeline execution
+
+---
+## How to run ML Model In my PC
+## ▶️ Run Locally
+
+### 1️⃣ Clone Repository
+
+
+### 2️⃣ Create Virtual Environment
+python -m venv venv
+venv\Scripts\activate
+
+### 3️⃣ Install Requirements
+pip install -r requirements.txt
+
+
+### 4️⃣ Run Streamlit App
+Paste the command in your terminal of VS Code :  <B> streamlit run app.py </B>
+
+
+Open in browser:
+http://localhost:8501
+
+
+## 📌 Deployment
+
+This project can be deployed on:
+
+- Render.com
+
+---
+
+## 🏆 Key Highlights
+
+✔ Industrial-scale time-series dataset  
+✔ Multivariate anomaly detection  
+✔ Modular ML pipeline architecture  
+✔ Interactive web dashboard  
+✔ Production-ready structure  
+
+---
+
+## 📈 Future Improvements
+
+- Weather data integration
+- SHAP explainability
+- Model persistence
+- Real-time anomaly detection
+- Cloud deployment with CI/CD
+
+---
+
+## 👨‍💻 Author
+
+Sagar Karosiya  
+AI & ML Engineer | Game Developer | Data Scientist  
+
+---
+
+## ⭐ If You Like This Project
+
+Give it a star ⭐ on GitHub!
+
+
+
+
+
 
