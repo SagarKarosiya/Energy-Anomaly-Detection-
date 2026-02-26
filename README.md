@@ -144,10 +144,35 @@ Professional footer branding
 
 ---
 
-##  📁 Project Architecture
+##  📁 Project Structure 
 
+```
 MajorProject_Evoastra/
- CSV Data
+│
+├── CSV Data
+│
+├── data_loader.py
+│
+├── preprocessing.py
+│
+├── feature_engineering.py
+│
+├── model.py
+│
+├── evaluation.py
+│
+├── business_insight.py
+│
+├── pdf_report.py
+│
+└── Streamlit Dashboard (app.py)
+```
+---
+
+##  📁 Project  Architecture
+
+```
+CSV Data
    ↓
 data_loader.py
    ↓
@@ -164,23 +189,7 @@ business_insight.py
 pdf_report.py
    ↓
 Streamlit Dashboard
----
-
-##  📁 Project Structure
-Energy_AI_Project/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-│
-└── src/
-    ├── data_loader.py
-    ├── preprocessing.py
-    ├── feature_engineering.py
-    ├── model.py
-    ├── evaluation.py
-    ├── business_insight.py
-    ├── pdf_report.py
+```
 
 
 
