@@ -29,7 +29,110 @@ Key Features
     Min-Max scaling to [0,1]
 
     Automatic energy column detection
-    
+
+
+##🔹 50+ Engineered Features
+Temporal Features
+
+     Hour, Day, Month
+
+     Day of Week
+
+     Quarter
+
+     Weekend indicator
+
+     Cyclical Encoding
+
+     Hour sine/cosine
+
+     Month sine/cosine
+
+     Rolling Statistics
+
+     Rolling mean (6, 12, 24, 48, 168 hours)
+
+     Rolling standard deviation
+
+     Rolling min/max
+
+     Lag Features
+
+      Lag 1, 2, 3, 6, 12, 24, 48, 72, 168, 336
+
+    Deviation Metrics
+
+     Z-score (24-hour & 168-hour window)
+
+## Machine Learning Models
+
+Supported anomaly detection models:
+
+    ✅ Isolation Forest
+
+    ✅ Local Outlier Factor (LOF)
+
+    ✅ One-Class SVM
+
+    ✅ Robust Covariance (Elliptic Envelope)
+
+🧠 Smart Model Switching
+ 
+    For large datasets (>300,000 rows), the system automatically switches to Isolation Forest for performance optimization.
+Evaluation Metrics
+
+    Total Samples
+ 
+    Total Anomalies
+ 
+    Anomaly Detection Rate (~5%)
+
+    Feature importance ranking
+
+    Anomaly distribution statistics
+
+    Top anomalous samples identified
+
+Business Insights & Impact
+
+The system translates ML output into business value:
+
+     💰 Estimated cost impact calculation
+
+     📅 Seasonal anomaly analysis
+
+     🕒 Peak anomaly hours identification
+  
+     🔎 Anomaly type classification
+
+     📈 Executive recommendations
+
+
+Momentum-based anomaly indicators
+
+## Interactive Dashboard
+
+    Built with Streamlit.
+
+Features:
+
+    Upload custom CSV dataset
+
+    Select ML model
+
+    View anomaly detection metrics
+
+    Visualize anomalies on time-series plots
+
+    Download executive PDF report
+
+    View engineered feature list
+
+    Display column data types
+
+
+
+Professional footer branding
 ## 🧠 ML Approach
 
 - Multivariate Time-Series Data
@@ -63,21 +166,45 @@ Total Engineered Features: 13+
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture
+
 MajorProject_Evoastra/
+ CSV Data
+   ↓
+data_loader.py
+   ↓
+preprocessing.py
+   ↓
+feature_engineering.py
+   ↓
+model.py
+   ↓
+evaluation.py
+   ↓
+business_insight.py
+   ↓
+pdf_report.py
+   ↓
+Streamlit Dashboard
+---
+
+## 📁 Project Structure
+Energy_AI_Project/
 │
 ├── app.py
 ├── requirements.txt
 ├── README.md
 │
 └── src/
-├── data_loader.py
-├── preprocessing.py
-├── feature_engineering.py
-└── model.py
+    ├── data_loader.py
+    ├── preprocessing.py
+    ├── feature_engineering.py
+    ├── model.py
+    ├── evaluation.py
+    ├── business_insight.py
+    ├── pdf_report.py
 
 
----
 
 ##  How It Works 🤔
 
@@ -100,7 +227,7 @@ MajorProject_Evoastra/
 
 ---
 ## How to run ML Model In my PC 😁✌️💻
-## ▶️ Run Locally 📡
+## Installation
 
 ### 1️⃣ Clone Repository
 https://github.com/SagarKarosiya/Energy-Anomaly-Detection-.git
@@ -111,16 +238,26 @@ venv\Scripts\activate
 
 ### 3️⃣ Install Requirements
 pip install -r requirements.txt
-Put your Data file (abc.csv) in data folder in the model.
 
-### 4️⃣ Run Streamlit App
+
+### 4️⃣ Run Dashboard 
 Paste the command in your terminal of VS Code :  <B> streamlit run app.py </B>
 
 
 Open in browser:
 http://localhost:8501
 
+## Sample Dataset Format
 
+ Required columns:
+
+      timestamp
+
+      energy columns (electricity, water, gas, etc.)
+
+      optional weather variables
+
+Timestamp must be in datetime-compatible format.
 ## 📱 Deployment
 
 This project can be deployed on:
@@ -129,6 +266,22 @@ This project can be deployed on:
 ## Link : 🖥 (currently link not activate)
 ---
 
+
+## Dependencies
+
+     Python 3.9+
+
+     pandas
+
+     numpy
+
+     scikit-learn
+
+      streamlit
+
+      plotly
+
+      reportlab
 ## 🏆 Key Highlights
 
 ✔ Industrial-scale time-series dataset  
@@ -148,6 +301,13 @@ This project can be deployed on:
 - Cloud deployment with CI/CD
 
 ---
+## License
+
+This project is for academic and research purposes.
+All Rights Reserved © 2026 Sagar Karosiya
+
+------
+
 
 ## 👨‍💻 Author
 
