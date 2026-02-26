@@ -149,22 +149,24 @@ Professional footer branding
 ```
 MajorProject_Evoastra/
 │
-├── CSV Data
+├── Data
 │
-├── data_loader.py
+├──scr
+    ├── data_loader.py
+    │
+    ├── preprocessing.py
+    │
+    ├── feature_engineering.py
+    │
+    ├── model.py
+    │
+    ├── evaluation.py
+    │
+    ├── business_insight.py
+    │
+    ├── pdf_report.py
 │
-├── preprocessing.py
-│
-├── feature_engineering.py
-│
-├── model.py
-│
-├── evaluation.py
-│
-├── business_insight.py
-│
-├── pdf_report.py
-│
+├── requirements.txt
 └── Streamlit Dashboard (app.py)
 ```
 ---
