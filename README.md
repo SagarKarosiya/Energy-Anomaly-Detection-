@@ -4,7 +4,7 @@ An end-to-end Machine Learning project for detecting energy consumption anomalie
 
 ---
 
-## 💻 Project Overview
+##  💻 Project Overview
 
 Commercial buildings consume ~30% of global energy, generating billions in operational costs annually.
 
@@ -18,7 +18,7 @@ This project builds a multivariate time-series anomaly detection system to autom
 
 ---
 Key Features
-##🔹 Advanced Data Preprocessing
+## 🔹 Advanced Data Preprocessing
 
     Timestamp normalization
 
@@ -31,7 +31,7 @@ Key Features
     Automatic energy column detection
 
 
-##🔹 50+ Engineered Features
+## 🔹 50+ Engineered Features
 Temporal Features
 
      Hour, Day, Month
@@ -64,7 +64,7 @@ Temporal Features
 
      Z-score (24-hour & 168-hour window)
 
-## Machine Learning Models
+##  Machine Learning Models
 
 Supported anomaly detection models:
 
@@ -76,7 +76,7 @@ Supported anomaly detection models:
 
     ✅ Robust Covariance (Elliptic Envelope)
 
-🧠 Smart Model Switching
+##  🧠 Smart Model Switching
  
     For large datasets (>300,000 rows), the system automatically switches to Isolation Forest for performance optimization.
 Evaluation Metrics
@@ -110,7 +110,7 @@ The system translates ML output into business value:
 
 Momentum-based anomaly indicators
 
-## Interactive Dashboard
+##  Interactive Dashboard
 
     Built with Streamlit.
 
@@ -140,33 +140,11 @@ Professional footer branding
 - Isolation Forest (Unsupervised Anomaly Detection)
 - Feature Scaling (StandardScaler)
 
----
 
-## 📉 Features Engineered
-
-- Hour of Day
-- Day of Week
-- Month
-- 24-hour Rolling Mean
-- 24-hour Rolling Standard Deviation
-- Multi-energy correlation features
-
-Total Engineered Features: 13+
 
 ---
 
-## 🛠⚙️ Tech Stack 
-
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Plotly
-- Streamlit
-
----
-
-## 📁 Project Architecture
+##  📁 Project Architecture
 
 MajorProject_Evoastra/
  CSV Data
@@ -188,7 +166,7 @@ pdf_report.py
 Streamlit Dashboard
 ---
 
-## 📁 Project Structure
+##  📁 Project Structure
 Energy_AI_Project/
 │
 ├── app.py
@@ -206,7 +184,7 @@ Energy_AI_Project/
 
 
 
-##  How It Works 🤔
+##   How It Works 🤔
 
 1. Load energy datasets (Electricity, Hot Water, Chilled Water)
 2. Clean & preprocess time-series data
@@ -227,6 +205,7 @@ Energy_AI_Project/
 
 ---
 ## How to run ML Model In my PC 😁✌️💻
+
 ## Installation
 
 ### 1️⃣ Clone Repository
@@ -257,8 +236,8 @@ http://localhost:8501
 
       optional weather variables
 
-Timestamp must be in datetime-compatible format.
-## 📱 Deployment
+      Timestamp must be in datetime-compatible format.
+##  📱 Deployment
 
 This project can be deployed on:
 
@@ -267,7 +246,7 @@ This project can be deployed on:
 ---
 
 
-## Dependencies
+##  Dependencies
 
      Python 3.9+
 
@@ -282,7 +261,7 @@ This project can be deployed on:
       plotly
 
       reportlab
-## 🏆 Key Highlights
+##  🏆 Key Highlights
 
 ✔ Industrial-scale time-series dataset  
 ✔ Multivariate anomaly detection  
