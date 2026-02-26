@@ -17,7 +17,19 @@ Unexpected energy spikes due to:
 This project builds a multivariate time-series anomaly detection system to automatically detect abnormal energy usage patterns.
 
 ---
+Key Features
+##🔹 Advanced Data Preprocessing
 
+    Timestamp normalization
+
+    Missing value handling (forward/backward fill)
+
+    Outlier capping at 99th percentile
+
+    Min-Max scaling to [0,1]
+
+    Automatic energy column detection
+    
 ## 🧠 ML Approach
 
 - Multivariate Time-Series Data
