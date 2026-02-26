@@ -6,23 +6,10 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 
-def train_model(df, model_choice="Isolation Forest", large_data_threshold=200000):
+def train_model(df, model_choice="Isolation Forest"):
 
     print(f"🤖 Training {model_choice}...")
 
-    # =========================
-    # Detect Large Dataset
-    # =========================
-    switched = False
-
-    if len(df) > large_data_threshold and model_choice != "Isolation Forest":
-        print("⚠ Large dataset detected. Switching to Isolation Forest.")
-        model_choice = "Isolation Forest"
-        switched = True
-
-    # =========================
-    # Feature Selection
-    # =========================
     X = df.select_dtypes(include=np.number).drop(
         columns=["final_anomaly"], errors="ignore"
     )
@@ -31,14 +18,10 @@ def train_model(df, model_choice="Isolation Forest", large_data_threshold=200000
     X_scaled = scaler.fit_transform(X)
 
     # =========================
-    # Model Selection
+    # MODEL SELECTION
     # =========================
     if model_choice == "Isolation Forest":
-        model = IsolationForest(
-            contamination=0.05,
-            random_state=42,
-            n_jobs=-1
-        )
+        model = IsolationForest(contamination=0.05, random_state=42)
         model.fit(X_scaled)
         preds = model.predict(X_scaled)
         scores = model.decision_function(X_scaled)
@@ -63,12 +46,10 @@ def train_model(df, model_choice="Isolation Forest", large_data_threshold=200000
     else:
         raise ValueError("Invalid model selected")
 
-    # =========================
-    # Predictions
-    # =========================
+    # Convert (-1,1) → (1 anomaly, 0 normal)
     df["final_anomaly"] = np.where(preds == -1, 1, 0)
 
-    # Lower score = more anomalous
+    # Add anomaly score (lower score = more abnormal)
     df["anomaly_score"] = scores
 
     anomaly_rate = df["final_anomaly"].mean() * 100
@@ -76,4 +57,4 @@ def train_model(df, model_choice="Isolation Forest", large_data_threshold=200000
     print("✅ Model Training Completed")
     print(f"🔎 Anomaly Rate: {round(anomaly_rate, 2)}%")
 
-    return df, switched, model
+    return df, model
