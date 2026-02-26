@@ -252,8 +252,8 @@ http://localhost:8501
 
 This project can be deployed on:
 
-- Render.com
-## Link : 🖥 (currently link not activate)
+- Streamlit
+## Link :https://nstnjn6q3kqdqwafkrbkg2.streamlit.app/ 
 ---
 
 
