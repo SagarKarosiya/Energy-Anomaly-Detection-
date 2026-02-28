@@ -10,8 +10,9 @@ from src.evaluation import evaluate_model
 from src.business_insight import generate_business_insights
 from src.pdf_report import generate_pdf_report
 
+
 # =====================================================
-# PAGE CONFIG
+# PAGE CONFIG Main File 
 # =====================================================
 st.set_page_config(
     page_title="Energy AI Dashboard",
@@ -21,7 +22,21 @@ st.set_page_config(
 
 st.title("⚡ Energy Anomaly Detection System")
 st.markdown("AI-Powered Commercial Energy Intelligence Platform")
-st.markdown("Group-D")
+st.markdown("**Developed by Sagar Karosiya**")
+
+
+# =====================================================
+# SESSION STATE INIT
+# =====================================================
+if "df_final" not in st.session_state:
+    st.session_state.df_final = None
+
+if "insights" not in st.session_state:
+    st.session_state.insights = None
+
+if "evaluation_stats" not in st.session_state:
+    st.session_state.evaluation_stats = None
+
 
 # =====================================================
 # SIDEBAR
@@ -35,11 +50,9 @@ uploaded_file = st.sidebar.file_uploader(
 
 cost_per_unit = st.sidebar.number_input(
     "Cost per Energy Unit ($)",
-    value=0.12
+    value=0.52
 )
 
-run_button = st.sidebar.button(" Run Analysis")
-# Model Picker
 model_choice = st.sidebar.selectbox(
     "Select Anomaly Detection Model",
     [
@@ -49,37 +62,44 @@ model_choice = st.sidebar.selectbox(
         "Robust Covariance"
     ]
 )
+
+run_button = st.sidebar.button(" Run Analysis")
+
+
 # =====================================================
-# MAIN EXECUTION
+# RUN PIPELINE
 # =====================================================
 if uploaded_file is not None and run_button:
 
-    with st.spinner("Running full ML pipeline..."):
+    with st.spinner("Running ML pipeline... Please wait."):
 
-        # -----------------------------
-        # LOAD DATA
-        # -----------------------------
         df = pd.read_csv(uploaded_file)
 
-        # Auto-detect timestamp column
+        # Auto detect timestamp column
         timestamp_found = False
         for col in df.columns:
             if "time" in col.lower():
-                df = df.rename(columns={col: "timestamp"})
+                df.rename(columns={col: "timestamp"}, inplace=True)
                 timestamp_found = True
                 break
 
         if not timestamp_found:
-            st.error("No timestamp column found.")
+            st.error(" No timestamp column detected.")
             st.stop()
+        # -----------------------------
+        # LOAD DATA
+        # -----------------------------
+        st.spinner("Data Reading..")
 
-        # -----------------------------
-        # PREPROCESSING
-        # -----------------------------
+        
+       # -------------------------------------------------
+       # Preprocessing
+       # -------------------------------------------------
         df = preprocess_data(df)
+        
 
-        st.header("🧹 Preprocessing Results")
-
+        st.header(" Preprocessing Results")
+        st.spinner("Preprocessing Data..")
         col1, col2 = st.columns(2)
 
         col1.metric("Missing Values", df.isna().sum().sum())
@@ -94,37 +114,46 @@ if uploaded_file is not None and run_button:
 
         st.divider()
 
-        # -----------------------------
-        # FEATURE ENGINEERING
-        # -----------------------------
+       # -------------------------------------------------
+       # FEATURE ENGINEERING
+       # -------------------------------------------------
         df = feature_engineering(df)
-
         st.header("⚙ Feature Engineering Results")
         st.success(f"Total Features After Engineering: {df.shape[1]}")
+        st.success(f"Total Features After Engineering: {df.columns}")
         st.success("✔ Rolling deviation metrics added")
         st.success("✔ Temporal seasonality features added")
         st.success("✔ Lag & momentum features added")
 
         st.divider()
 
-        # -----------------------------
-        # MODEL TRAINING
-        # -----------------------------
-        df,switched, model = train_model(df, model_choice)
+
+        # Model Training
+        df, switched, model = train_model(df, model_choice)
+
         if switched:
-          st.warning("Large dataset detected. Switched to Isolation Forest for performance.")
+            st.warning("Large dataset detected. Switched to Isolation Forest for performance.")
         st.header(" Model Results")
 
         anomaly_rate = round(df["final_anomaly"].mean() * 100, 2)
+        total_anomalies = int(df["final_anomaly"].sum())
+
+        col1, col2 = st.columns(2)
+        col1.metric("Anomaly Rate (%)", anomaly_rate)
+        col2.metric("Total Anomalies", total_anomalies)
 
         st.metric("Model Used", model_choice)
         st.metric("Anomaly Rate (%)", anomaly_rate)
         st.success("✔ Anomaly labels generated")
+        st.success("✔ Anomaly predictions generated")
         st.success("✔ Anomaly scores computed")
+        st.success("✔ Model Competitable with  Isolation Forest")
+        st.success("✔ Model Competitable with  Local Outlier Factor (LOF)")
+        st.success("✔ Model Competitable with  One-Class SVM")
+        st.success("✔ Model Competitable with  Robust Covariance")
 
         st.divider()
-
-        # -----------------------------
+         # -----------------------------
         # DATA OVERVIEW
         # -----------------------------
         st.header(" Data Overview")
@@ -137,12 +166,10 @@ if uploaded_file is not None and run_button:
         st.dataframe(col_df, width="stretch")
 
         st.divider()
-
-        # -----------------------------
-        # EVALUATION
-        # -----------------------------
+        
+        # Evaluation
         evaluation_stats = evaluate_model(df)
-
+        
         st.header(" Evaluation Results")
 
         col1, col2 = st.columns(2)
@@ -159,7 +186,6 @@ if uploaded_file is not None and run_button:
         st.success("✔ Top anomalous samples identified")
 
         st.divider()
-
         # -----------------------------
         # TOP ANOMALIES
         # -----------------------------
@@ -173,59 +199,138 @@ if uploaded_file is not None and run_button:
         st.dataframe(top_anomalies, width="stretch")
 
         st.divider()
+        # ----------
 
-        # -----------------------------
-        # BUSINESS INSIGHTS
-        # -----------------------------
-        insights, df = generate_business_insights(
-            df,
-            cost_per_unit=cost_per_unit
+
+    # -------------------------------------------------
+    # BUSINESS INSIGHTS
+    # -------------------------------------------------
+        st.header(" Business Insight & Impact")
+        insights, df = generate_business_insights(df, cost_per_unit)
+
+        # Save in session
+        st.session_state.df_final = df
+        st.session_state.insights = insights
+        st.session_state.evaluation_stats = evaluation_stats
+        col1, col2 = st.columns(2)
+        col1.metric("Estimated Cost Impact ($)", insights["estimated_cost_loss_$"])
+        col2.metric("Anomaly Rate (%)", insights["anomaly_rate_percent"])
+         
+
+# =====================================================
+# DISPLAY RESULTS
+# =====================================================
+if st.session_state.df_final is not None:
+
+    df = st.session_state.df_final
+    insights = st.session_state.insights
+    evaluation_stats = st.session_state.evaluation_stats
+
+    # =====================================================
+    # CUSTOM PEAK HOUR ANALYSIS
+    # =====================================================
+    st.header("Peak Hour Analysis")
+
+    col1, col2 = st.columns(2)
+
+    months = sorted(df["month"].unique())
+    selected_month = col1.selectbox("Select Month", ["All"] + months)
+
+    dates = sorted(df["timestamp"].dt.date.unique())
+    selected_date = col2.selectbox("Select Specific Date", ["All"] + list(dates))
+
+    df_filtered = df.copy()
+    filter_label = "All Data"
+
+    if selected_month != "All":
+        df_filtered = df_filtered[df_filtered["month"] == selected_month]
+        filter_label = f"Month: {selected_month}"
+
+    if selected_date != "All":
+        df_filtered = df_filtered[
+            df_filtered["timestamp"].dt.date == selected_date
+        ]
+        filter_label = f"Date: {selected_date}"
+
+    st.subheader(f" Peak Anomaly Hours ({filter_label})")
+
+    peak_hours = (
+        df_filtered[df_filtered["final_anomaly"] == 1]
+        ["hour"]
+        .value_counts()
+        .sort_index()
+    )
+
+    if len(peak_hours) > 0:
+
+        fig = px.bar(
+            x=peak_hours.index,
+            y=peak_hours.values,
+            labels={"x": "Hour", "y": "Anomaly Count"},
+            title=f"Peak Anomaly Hours - {filter_label}"
         )
 
-        st.header(" Business Insight & Impact")
+        st.plotly_chart(fig, width="stretch")
 
-        col1, col2 = st.columns(2)
+        max_value = peak_hours.max()
+        top_hours = peak_hours[peak_hours == max_value].index.tolist()
+        hours_text = ", ".join([f"{int(h):02d}:00" for h in top_hours])
 
-        col1.metric("Estimated Cost Impact ($)",
-                    insights["estimated_cost_loss_$"])
+        st.markdown("### Peak Hour Summary")
 
-        col2.metric("Anomaly Rate (%)",
-                    insights["anomaly_rate_percent"])
+        st.info(
+            f"""
+             Analysis Scope: **{filter_label}**
 
-        # Seasonal
-        st.subheader(" Seasonal Pattern Analysis")
-        monthly = df[df["final_anomaly"] == 1]["month"].value_counts().sort_index()
-        st.bar_chart(monthly)
+             Peak Anomaly Hour(s): **{hours_text}**
 
-        # Peak hours
-        st.subheader(" Peak Anomaly Hours")
-        peak_hours = df[df["final_anomaly"] == 1]["hour"].value_counts().sort_index()
-        st.bar_chart(peak_hours)
+             Maximum Anomalies at that hour: **{int(max_value)}**
+            """
+        )
 
-        # Recommendations
-        st.subheader(" Business Recommendations")
-        for rec in insights["recommendations"]:
-            st.success(rec)
+    else:
+        st.warning("⚠ No anomalies found for selected filter.")
 
-        st.divider()
+    st.divider()
+    
+    # -----------------------------
+    # Seasonal Pattern
+    # -----------------------------
+    st.subheader(f" Seasonal Pattern ({filter_label})")
 
-# -----------------------------
-# PDF DOWNLOAD
-# -----------------------------
-        st.subheader("📄 Download Executive Report")
+    monthly = df_filtered[df_filtered["final_anomaly"] == 1] \
+            ["month"].value_counts().sort_index()
 
-        pdf_file = generate_pdf_report(df, insights, evaluation_stats)
+    if len(monthly) > 0:
+         st.bar_chart(monthly)
+    else:
+         st.warning("No seasonal anomaly data available.")
 
-        with open(pdf_file, "rb") as f:
-         st.download_button(
-        label=" Download PDF Report",
-        data=f,
-        file_name="Energy_AI_Report.pdf",
-        mime="application/pdf"
-    )
+    st.subheader(" Recommendations")
+    for rec in insights["recommendations"]:
+        st.success(rec)
+
+    st.divider()
+
+    # -------------------------------------------------
+    # PDF DOWNLOAD
+    # -------------------------------------------------
+    st.subheader(" Download Executive Report")
+
+    pdf_file = generate_pdf_report(df, insights, evaluation_stats)
+
+    with open(pdf_file, "rb") as f:
+        st.download_button(
+            label=" Download PDF Report",
+            data=f,
+            file_name="Energy_AI_Report.pdf",
+            mime="application/pdf"
+        )
+
 else:
     st.info("Upload CSV file and click 'Run Analysis' to begin.")
-#  st.warning(SagarKarosiya)
+
+
 # =====================================================
 # FOOTER
 # =====================================================
